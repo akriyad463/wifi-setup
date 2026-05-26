@@ -83,41 +83,6 @@
             margin-bottom: 35px;
             display: none;
         }
-        
-        /* Matching original theme copy area */
-        .cred-area {
-            width: 280px;
-            margin-top: 5px;
-            text-align: center;
-        }
-        .cred-title {
-            font-size: 11px;
-            color: #555;
-            margin-bottom: 15px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-        .cred-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-        .cred-row:last-child {
-            margin-bottom: 0;
-        }
-        .cred-btn {
-            padding: 5px 12px;
-            background: transparent;
-            color: #00b3ff;
-            border: 1px solid #00b3ff;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 70px;
-            font-weight: bold;
-            font-size: 11px;
-            transition: all 0.2s;
-        }
         footer {
             margin-top: 40px;
             font-size: 13px;
@@ -128,7 +93,7 @@
 </head>
 <body>
 
-    <img src="./img/router.png" class="router-img" alt="Router" onerror="this.src='https://i.imgur.com/w9Z3mXG.png'">
+    <img src="./img/router.png" class="router-img" alt="Router">
 
     <h1>WIFI-SETUP</h1>
     <div class="sub">Mobile Gateway Control</div>
@@ -142,28 +107,6 @@
     <div id="status">System Ready</div>
 
     <button id="installApp">INSTALL APP INSTANTLY</button>
-
-    <div class="cred-area">
-        <div class="cred-title">Router Login Access</div>
-        
-        <div class="cred-row">
-            <span style="font-size: 14px; color: #fff;">User: <strong style="color: #00b3ff; font-family: monospace;">telecomadmin</strong></span>
-            <button class="cred-btn" onclick="copyText('telecomadmin', this)">Copy</button>
-        </div>
-        <div class="cred-row" style="margin-bottom: 20px;">
-            <span style="font-size: 14px; color: #fff;">Pass: <strong style="color: #00b3ff; font-family: monospace;">admintelecom</strong></span>
-            <button class="cred-btn" onclick="copyText('admintelecom', this)">Copy</button>
-        </div>
-
-        <div class="cred-row">
-            <span style="font-size: 14px; color: #fff;">User: <strong style="color: #00b3ff; font-family: monospace;">root</strong></span>
-            <button class="cred-btn" onclick="copyText('root', this)">Copy</button>
-        </div>
-        <div class="cred-row">
-            <span style="font-size: 14px; color: #fff;">Pass: <strong style="color: #00b3ff; font-family: monospace;">adminHW</strong></span>
-            <button class="cred-btn" onclick="copyText('adminHW', this)">Copy</button>
-        </div>
-    </div>
 
     <footer>Copyright 2026© Create by Kamran Khan</footer>
 
@@ -198,21 +141,6 @@
         });
     }
 
-    function copyText(text, button) {
-        navigator.clipboard.writeText(text).then(() => {
-            const originalText = button.innerText;
-            button.innerText = "Copied!";
-            button.style.background = "#00b3ff";
-            button.style.color = "#000";
-            
-            setTimeout(() => {
-                button.innerText = originalText;
-                button.style.background = "transparent";
-                button.style.color = "#00b3ff";
-            }, 1200);
-        }).catch(err => console.error(err));
-    }
-
     let deferredPrompt;
     const installBtn = document.getElementById('installApp');
 
@@ -245,4 +173,3 @@
 
 </body>
 </html>
-
