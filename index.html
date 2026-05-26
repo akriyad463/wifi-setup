@@ -2,174 +2,263 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WIFI-SETUP</title>
-    <link rel="manifest" href="./manifest.json">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Wifi-Setup</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="icon.png">
+    <meta name="theme-color" content="#020617">
+    
     <style>
-        body {
-            background-color: #030a16;
-            color: #ffffff;
-            font-family: sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
+        :root {
+            --bg: #020617; 
+            --blue: #00d4ff;
+            --btn-grad: linear-gradient(135deg, #007bff 0%, #00d4ff 100%);
+            --orange: #ff8c00;
+            --green: #32cd32;
         }
-        .router-img {
-            width: 180px;
-            height: 180px;
+
+        /* Mobile Auto-Adjust Base */
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body, html {
+            margin: 0; padding: 0; 
+            height: 100%; width: 100%;
+            background-color: var(--bg); 
+            color: white;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            display: flex; flex-direction: column; 
+            align-items: center; justify-content: center;
+            overflow: hidden; /* Prevents scrolling on mobile */
+        }
+
+        /* Background Visual Glow */
+        .ambient-glow {
+            position: absolute; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, rgba(0, 212, 255, 0.07) 0%, transparent 80%);
+            z-index: -1;
+        }
+
+        /* Responsive Container */
+        .wrapper {
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            width: 100%; max-width: 400px; padding: 20px;
+            text-align: center;
+        }
+
+        /* UPGRADED ICON FRAME */
+        .icon-frame {
+            width: 40vw; height: 40vw;
+            max-width: 160px; max-height: 160px;
+            border-radius: 50%;
+            border: 2px solid var(--blue);
+            box-shadow: 0 0 25px var(--blue), inset 0 0 15px rgba(0, 212, 255, 0.3);
+            display: flex; justify-content: center; align-items: center;
             margin-bottom: 20px;
+            background: rgba(0, 212, 255, 0.05);
+            overflow: hidden;
+            animation: float 4s infinite ease-in-out;
         }
-        h1 {
-            font-size: 32px;
-            font-weight: bold;
-            letter-spacing: 2px;
-            margin: 0;
-            text-shadow: 0 0 15px #00a2ff;
+
+        .icon-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
-        .sub {
-            color: #888;
-            font-size: 15px;
-            margin-top: 5px;
-            margin-bottom: 40px;
-            letter-spacing: 1px;
+
+        h1 { 
+            font-size: clamp(22px, 7vw, 28px); /* Auto-scales on mobile */
+            letter-spacing: 3px; 
+            text-transform: uppercase; margin: 0; 
+            text-shadow: 0 0 15px var(--blue); font-weight: 800;
         }
-        .btn-outer {
-            width: 170px;
-            height: 170px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 30px;
-            position: relative;
-            background: rgba(0, 162, 255, 0.05);
-        }
+
+        .sub { font-size: 13px; opacity: 0.6; margin-bottom: 40px; letter-spacing: 1px;}
+
+        /* UPGRADED ROUND SCAN BUTTON */
+        .btn-outer { position: relative; display: inline-flex; }
+        
         .scan-btn {
-            width: 140px;
-            height: 140px;
+            width: 35vw; height: 35vw;
+            max-width: 150px; max-height: 150px;
             border-radius: 50%;
-            border: none;
-            background: linear-gradient(145deg, #00b3ff, #0088cc);
-            color: #ffffff;
-            font-size: 22px;
-            font-weight: bold;
-            letter-spacing: 1px;
-            cursor: pointer;
-            box-shadow: 0 0 30px rgba(0, 162, 255, 0.6);
-            z-index: 2;
+            background: var(--btn-grad);
+            border: none; color: white; 
+            font-size: clamp(18px, 5vw, 22px); 
+            font-weight: 900;
+            cursor: pointer; 
+            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.4);
+            text-transform: uppercase; transition: 0.3s; 
+            z-index: 5; position: relative;
         }
-        #status {
-            font-size: 16px;
-            color: #00ffff;
-            margin-bottom: 30px;
-            font-weight: bold;
+
+        .scan-btn:active { transform: scale(0.9); box-shadow: 0 5px 20px var(--blue); }
+
+        /* Glowing Pulse */
+        .pulse {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            border-radius: 50%; border: 2px solid var(--blue);
+            animation: ripple 2s infinite; pointer-events: none;
         }
+
+        @keyframes ripple {
+            0 { transform: scale(1); opacity: 1; }
+            100 { transform: scale(1.6); opacity: 0; }
+        }
+
+        #status { margin-top: 25px; font-size: 14px; color: var(--blue); font-weight: bold; min-height: 20px;}
+        
         #installApp {
-            background: transparent;
-            color: #00b3ff;
-            border: 2px solid #00b3ff;
-            padding: 12px 30px;
-            font-size: 13px;
-            font-weight: bold;
-            border-radius: 25px;
-            cursor: pointer;
-            box-shadow: 0 0 15px rgba(0, 162, 255, 0.3);
-            letter-spacing: 1px;
-            margin-bottom: 35px;
-            display: none;
+            display: none; margin-top: 25px; 
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--blue); color: var(--blue);
+            padding: 12px 25px; border-radius: 30px; cursor: pointer; 
+            font-weight: bold; text-transform: uppercase; font-size: 11px;
         }
+
+        /* NEW CREDENTIALS AREA - MATCHES STYLE PERFECTLY */
+        .cred-box {
+            width: 100%; max-width: 290px;
+            margin-top: 25px;
+            padding: 12px;
+            border-radius: 12px;
+            background: rgba(0, 212, 255, 0.03);
+            border: 1px solid rgba(0, 212, 255, 0.15);
+        }
+        .cred-title {
+            font-size: 11px; color: #667eea; letter-spacing: 1px;
+            text-transform: uppercase; margin-bottom: 10px; font-weight: bold;
+        }
+        .cred-row {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;
+        }
+        .cred-row:last-child { margin-bottom: 0; }
+        .cred-label { font-size: 13px; color: #ccc; }
+        .cred-val { color: var(--blue); font-family: monospace; font-weight: bold; font-size: 14px; }
+        .copy-btn {
+            padding: 4px 10px; background: transparent; color: var(--blue);
+            border: 1px solid var(--blue); border-radius: 4px; cursor: pointer;
+            width: 65px; font-weight: bold; font-size: 11px; transition: 0.2s;
+        }
+
+        /* UPGRADED FOOTER */
         footer {
-            margin-top: 40px;
-            font-size: 13px;
-            color: #79a43b;
-            font-weight: bold;
+            position: absolute; bottom: 30px; width: 100%; text-align: center;
+            font-size: 13px; font-weight: 800;
+            background: linear-gradient(90deg, var(--orange), var(--green));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.5));
         }
     </style>
 </head>
 <body>
 
-    <img src="./img/router.png" class="router-img" alt="Router">
+    <div class="ambient-glow"></div>
 
-    <h1>WIFI-SETUP</h1>
-    <div class="sub">Mobile Gateway Control</div>
-
-    <a id="gatewayLink" href="http://192.168.100.1" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
-        <div class="btn-outer">
-            <button class="scan-btn" type="button" onclick="startScan(event)">SCAN</button>
+    <div class="wrapper">
+        <div class="icon-frame">
+            <img src="icon.png" alt="Wifi Icon">
         </div>
-    </a>
 
-    <div id="status">System Ready</div>
+        <h1>Wifi-Setup</h1>
+        <div class="sub">Mobile Gateway Control</div>
 
-    <button id="installApp">INSTALL APP INSTANTLY</button>
+        <a id="gatewayLink" href="http://192.168.100.1" target="_blank" rel="noopener noreferrer" style="text-decoration: none; display: inline-flex;">
+            <div class="btn-outer">
+                <div class="pulse"></div>
+                <button class="scan-btn" type="button" onclick="startScan(event)">Scan</button>
+            </div>
+        </a>
 
-    <footer>Copyright 2026© Create by Kamran Khan</footer>
-
-<script>
-    async function startScan(event) {
-        const st = document.getElementById('status');
-        const targetLink = document.getElementById('gatewayLink');
-        st.innerText = "Running Scan...";
+        <div id="status">System Ready</div>
         
-        try {
-            const ip = await detectIP();
-            const gateway = ip.split('.').slice(0, 3).join('.') + '.1';
-            st.innerHTML = `<span style="color:#00ffff;">SUCCESS: ${gateway}</span>`;
-            targetLink.href = `http://${gateway}`;
-        } catch (e) {
-            st.innerText = "Redirecting: 192.168.100.1";
-            targetLink.href = "http://192.168.100.1";
+        <button id="installApp">Install App Instantly</button>
+
+        <div class="cred-box">
+            <div class="cred-title">Router Login Access</div>
+            
+            <div class="cred-row">
+                <div class="cred-label">User: <span class="cred-val">telecomadmin</span></div>
+                <button class="copy-btn" onclick="copyValue('telecomadmin', this)">Copy</button>
+            </div>
+            <div class="cred-row" style="margin-bottom: 14px;">
+                <div class="cred-label">Pass: <span class="cred-val">admintelecom</span></div>
+                <button class="copy-btn" onclick="copyValue('admintelecom', this)">Copy</button>
+            </div>
+
+            <div class="cred-row">
+                <div class="cred-label">User: <span class="cred-val">root</span></div>
+                <button class="copy-btn" onclick="copyValue('root', this)">Copy</button>
+            </div>
+            <div class="cred-row">
+                <div class="cred-label">Pass: <span class="cred-val">adminHW</span></div>
+                <button class="copy-btn" onclick="copyValue('adminHW', this)">Copy</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>Copyright 2026@ Create by Kamran Khan</footer>
+
+    <script>
+        // High-Speed Gateway Logic with Browser Sandbox Bypass
+        async function startScan(event) {
+            const st = document.getElementById('status');
+            const targetLink = document.getElementById('gatewayLink');
+            st.innerText = "🚀 Running Scan...";
+            try {
+                const ip = await detectIP();
+                const gateway = ip.split('.').slice(0, 3).join('.') + '.1';
+                st.innerHTML = `<span style="color:#32cd32">✅ SUCCESS: ${gateway}</span>`;
+                targetLink.href = `http://${gateway}`;
+            } catch (e) {
+                st.innerText = "Redirecting: 192.168.100.1";
+                targetLink.href = "http://192.168.100.1";
+            }
         }
-    }
 
-    function detectIP() {
-        return new Promise((res) => {
-            const pc = new RTCPeerConnection();
-            pc.createDataChannel("");
-            pc.createOffer().then(pc.setLocalDescription.bind(pc));
-            pc.onicecandidate = (i) => {
-                if (!i || !i.candidate) return;
-                const m = /([0-9]{1,3}(\.[0-9]{1,3}){3})/.exec(i.candidate.candidate);
-                if (m) { pc.close(); res(m[1]); }
-            };
-            setTimeout(() => res("192.168.100.1"), 1500);
-        });
-    }
-
-    let deferredPrompt;
-    const installBtn = document.getElementById('installApp');
-
-    window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        installBtn.style.display = 'block';
-    });
-
-    installBtn.addEventListener('click', async () => {
-        if (!deferredPrompt) return;
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        if (outcome === 'accepted') {
-            installBtn.style.display = 'none';
+        function detectIP() {
+            return new Promise((res) => {
+                const pc = new RTCPeerConnection();
+                pc.createDataChannel("");
+                pc.createOffer().then(pc.setLocalDescription.bind(pc));
+                pc.onicecandidate = (i) => {
+                    if (!i || !i.candidate) return;
+                    const m = /([0-9]{1,3}(\.[0-9]{1,3}){3})/.exec(i.candidate.candidate);
+                    if (m) { pc.close(); res(m[1]); }
+                };
+                setTimeout(() => res("192.168.100.1"), 1500);
+            });
         }
-        deferredPrompt = null;
-    });
 
-    window.addEventListener('appinstalled', () => {
-        installBtn.style.display = 'none';
-    });
+        // Fast Copy Script
+        function copyValue(text, element) {
+            navigator.clipboard.writeText(text).then(() => {
+                const oldText = element.innerText;
+                element.innerText = "Copied!";
+                element.style.background = "var(--blue)";
+                element.style.color = "#020617";
+                setTimeout(() => {
+                    element.innerText = oldText;
+                    element.style.background = "transparent";
+                    element.style.color = "var(--blue)";
+                }, 1000);
+            });
+        }
 
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js');
+        // PWA Install Script
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault(); deferredPrompt = e;
+            document.getElementById('installApp').style.display = 'block';
         });
-    }
-</script>
 
+        document.getElementById('installApp').onclick = () => {
+            if (deferredPrompt) { deferredPrompt.prompt(); deferredPrompt = null; }
+        };
+
+        if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
+    </script>
 </body>
 </html>
+
