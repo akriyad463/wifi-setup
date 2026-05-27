@@ -17,7 +17,6 @@
             --green: #32cd32;
         }
 
-        /* Mobile Auto-Adjust Base */
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
         body, html {
@@ -28,17 +27,15 @@
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             display: flex; flex-direction: column; 
             align-items: center; justify-content: center;
-            overflow: hidden; /* Prevents scrolling on mobile */
+            overflow: hidden;
         }
 
-        /* Background Visual Glow */
         .ambient-glow {
             position: absolute; width: 100%; height: 100%;
             background: radial-gradient(circle at center, rgba(0, 212, 255, 0.07) 0%, transparent 80%);
             z-index: -1;
         }
 
-        /* Responsive Container */
         .wrapper {
             display: flex; flex-direction: column;
             align-items: center; justify-content: center;
@@ -46,7 +43,6 @@
             text-align: center;
         }
 
-        /* UPGRADED ICON FRAME */
         .icon-frame {
             width: 40vw; height: 40vw;
             max-width: 160px; max-height: 160px;
@@ -68,7 +64,7 @@
         }
 
         h1 { 
-            font-size: clamp(22px, 7vw, 28px); /* Auto-scales on mobile */
+            font-size: clamp(22px, 7vw, 28px);
             letter-spacing: 3px; 
             text-transform: uppercase; margin: 0; 
             text-shadow: 0 0 15px var(--blue); font-weight: 800;
@@ -76,7 +72,6 @@
 
         .sub { font-size: 13px; opacity: 0.6; margin-bottom: 40px; letter-spacing: 1px;}
 
-        /* UPGRADED ROUND SCAN BUTTON */
         .btn-outer { position: relative; display: inline-flex; }
         
         .scan-btn {
@@ -95,7 +90,6 @@
 
         .scan-btn:active { transform: scale(0.9); box-shadow: 0 5px 20px var(--blue); }
 
-        /* Glowing Pulse */
         .pulse {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             border-radius: 50%; border: 2px solid var(--blue);
@@ -103,8 +97,8 @@
         }
 
         @keyframes ripple {
-            0 { transform: scale(1); opacity: 1; }
-            100 { transform: scale(1.6); opacity: 0; }
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.6); opacity: 0; }
         }
 
         #status { margin-top: 25px; font-size: 14px; color: var(--blue); font-weight: bold; min-height: 20px;}
@@ -117,32 +111,12 @@
             font-weight: bold; text-transform: uppercase; font-size: 11px;
         }
 
-        /* NEW CREDENTIALS AREA - MATCHES STYLE PERFECTLY */
-        .cred-box {
-            width: 100%; max-width: 290px;
-            margin-top: 25px;
-            padding: 12px;
-            border-radius: 12px;
-            background: rgba(0, 212, 255, 0.03);
-            border: 1px solid rgba(0, 212, 255, 0.15);
-        }
-        .cred-title {
-            font-size: 11px; color: #667eea; letter-spacing: 1px;
-            text-transform: uppercase; margin-bottom: 10px; font-weight: bold;
-        }
-        .cred-row {
-            display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;
-        }
-        .cred-row:last-child { margin-bottom: 0; }
-        .cred-label { font-size: 13px; color: #ccc; }
-        .cred-val { color: var(--blue); font-family: monospace; font-weight: bold; font-size: 14px; }
-        .copy-btn {
-            padding: 4px 10px; background: transparent; color: var(--blue);
-            border: 1px solid var(--blue); border-radius: 4px; cursor: pointer;
-            width: 65px; font-weight: bold; font-size: 11px; transition: 0.2s;
-        }
+        /* Credentials Box Added */
+        .cred-box { width: 100%; max-width: 290px; margin-top: 25px; padding: 10px; border: 1px solid rgba(0, 212, 255, 0.2); border-radius: 10px; }
+        .cred-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+        .cred-val { color: var(--blue); font-family: monospace; font-weight: bold; }
+        .copy-btn { padding: 2px 8px; font-size: 10px; background: transparent; color: var(--blue); border: 1px solid var(--blue); border-radius: 3px; cursor: pointer; }
 
-        /* UPGRADED FOOTER */
         footer {
             position: absolute; bottom: 30px; width: 100%; text-align: center;
             font-size: 13px; font-weight: 800;
@@ -176,32 +150,16 @@
         <button id="installApp">Install App Instantly</button>
 
         <div class="cred-box">
-            <div class="cred-title">Router Login Access</div>
-            
-            <div class="cred-row">
-                <div class="cred-label">User: <span class="cred-val">telecomadmin</span></div>
-                <button class="copy-btn" onclick="copyValue('telecomadmin', this)">Copy</button>
-            </div>
-            <div class="cred-row" style="margin-bottom: 14px;">
-                <div class="cred-label">Pass: <span class="cred-val">admintelecom</span></div>
-                <button class="copy-btn" onclick="copyValue('admintelecom', this)">Copy</button>
-            </div>
-
-            <div class="cred-row">
-                <div class="cred-label">User: <span class="cred-val">root</span></div>
-                <button class="copy-btn" onclick="copyValue('root', this)">Copy</button>
-            </div>
-            <div class="cred-row">
-                <div class="cred-label">Pass: <span class="cred-val">adminHW</span></div>
-                <button class="copy-btn" onclick="copyValue('adminHW', this)">Copy</button>
-            </div>
+            <div class="cred-row"><span class="cred-val">telecomadmin</span> <button class="copy-btn" onclick="copyV('telecomadmin')">Copy</button></div>
+            <div class="cred-row"><span class="cred-val">admintelecom</span> <button class="copy-btn" onclick="copyV('admintelecom')">Copy</button></div>
+            <div class="cred-row"><span class="cred-val">root</span> <button class="copy-btn" onclick="copyV('root')">Copy</button></div>
+            <div class="cred-row"><span class="cred-val">adminHW</span> <button class="copy-btn" onclick="copyV('adminHW')">Copy</button></div>
         </div>
     </div>
 
     <footer>Copyright 2026@ Create by Kamran Khan</footer>
 
     <script>
-        // High-Speed Gateway Logic with Browser Sandbox Bypass
         async function startScan(event) {
             const st = document.getElementById('status');
             const targetLink = document.getElementById('gatewayLink');
@@ -231,22 +189,8 @@
             });
         }
 
-        // Fast Copy Script
-        function copyValue(text, element) {
-            navigator.clipboard.writeText(text).then(() => {
-                const oldText = element.innerText;
-                element.innerText = "Copied!";
-                element.style.background = "var(--blue)";
-                element.style.color = "#020617";
-                setTimeout(() => {
-                    element.innerText = oldText;
-                    element.style.background = "transparent";
-                    element.style.color = "var(--blue)";
-                }, 1000);
-            });
-        }
+        function copyV(t) { navigator.clipboard.writeText(t); }
 
-        // PWA Install Script
         let deferredPrompt;
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault(); deferredPrompt = e;
@@ -260,5 +204,5 @@
         if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
     </script>
 </body>
-</html>
-
+    </html>
+    
